@@ -51,6 +51,7 @@
     100% { transform: translate(-2%, -1%) rotate(1deg); }
   }
 
+  /* NAV */
   nav {
     position: fixed; top: 0; width: 100%;
     padding: 1rem 3rem;
@@ -68,14 +69,23 @@
     background: var(--gradient-accent);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+    flex-shrink: 0;
   }
 
-  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links {
+    display: flex; gap: 2rem; list-style: none;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .nav-links::-webkit-scrollbar { display: none; }
+
   .nav-links a {
     color: var(--text-muted); text-decoration: none;
     font-size: 0.9rem; font-weight: 500;
     letter-spacing: 0.05em; text-transform: uppercase;
     transition: color 0.3s;
+    white-space: nowrap;
   }
   .nav-links a:hover { color: var(--accent-glow); }
   .nav-links a.active {
@@ -91,15 +101,34 @@
     border-radius: 1px;
   }
 
+  /* Hamburger */
+  .nav-toggle {
+    display: none;
+    background: none; border: none; cursor: pointer;
+    width: 28px; height: 20px;
+    position: relative; flex-shrink: 0;
+  }
+  .nav-toggle span {
+    display: block; position: absolute; left: 0;
+    width: 100%; height: 2px;
+    background: var(--text); border-radius: 2px;
+    transition: all 0.3s;
+  }
+  .nav-toggle span:nth-child(1) { top: 0; }
+  .nav-toggle span:nth-child(2) { top: 9px; }
+  .nav-toggle span:nth-child(3) { top: 18px; }
+  .nav-toggle.open span:nth-child(1) { top: 9px; transform: rotate(45deg); }
+  .nav-toggle.open span:nth-child(2) { opacity: 0; }
+  .nav-toggle.open span:nth-child(3) { top: 9px; transform: rotate(-45deg); }
+
   .container { max-width: 1400px; margin: 0 auto; padding: 0 3rem; }
 
+  /* HERO */
   .hero {
     min-height: 100vh;
     display: flex; align-items: center;
     padding-top: 5rem;
   }
-
-  .hero .container { max-width: 1500px; }
 
   .hero-inner {
     display: grid;
@@ -264,6 +293,7 @@
 
   .divider { width: 100%; height: 1px; background: var(--border); }
 
+  /* TIMELINE */
   .timeline-item {
     display: grid; grid-template-columns: 160px 1fr;
     gap: 3rem; padding: 2.25rem 0;
@@ -300,6 +330,7 @@
     color: var(--accent-glow); font-weight: 500;
   }
 
+  /* SKILLS */
   .skills-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; }
 
   .skill-group {
@@ -315,7 +346,7 @@
     background: rgba(59, 130, 246, 0.1);
     border-radius: 10px;
     display: flex; align-items: center; justify-content: center;
-    margin-bottom: 1rem; font-size: 1.1rem;
+    margin-bottom: 1rem; font-size: 0.8rem; color: var(--accent-glow); font-weight: 700;
   }
 
   .skill-group h3 { font-size: 1.02rem; font-weight: 600; margin-bottom: 0.75rem; }
@@ -331,7 +362,7 @@
   }
   .skill-tag:hover { color: var(--text); background: rgba(255,255,255,0.08); }
 
-  /* Certifications with numbers */
+  /* CERTS */
   .certs-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; }
 
   .cert-item {
@@ -359,6 +390,7 @@
   .cert-name { font-size: 0.95rem; font-weight: 500; margin-bottom: 0.15rem; }
   .cert-issuer { font-size: 0.85rem; color: var(--text-muted); font-weight: 300; }
 
+  /* COMMUNITY */
   .community-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.25rem; }
 
   .community-card {
@@ -380,7 +412,7 @@
     margin-bottom: 0.75rem;
   }
 
-  /* Projects with thumbnails */
+  /* PROJECTS */
   .projects-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.25rem; }
 
   .project-card {
@@ -429,7 +461,6 @@
     color: #a78bfa; font-weight: 500;
   }
 
-  /* View all card */
   .project-card-cta {
     display: flex; flex-direction: column;
     align-items: center; justify-content: center;
@@ -441,6 +472,7 @@
   .project-card-cta .tableau-logo { margin-bottom: 1rem; }
   .project-card-cta h3 { margin-bottom: 0.4rem; }
 
+  /* CTA */
   .cta-section { padding: 6rem 0; text-align: center; }
 
   .cta-box {
@@ -470,26 +502,53 @@
     font-size: 0.88rem; color: var(--text-muted);
   }
 
+  /* ===== RESPONSIVE ===== */
   @media (max-width: 1100px) {
     .projects-grid { grid-template-columns: repeat(2, 1fr); }
     .skills-grid { grid-template-columns: repeat(2, 1fr); }
     .container { padding: 0 2rem; }
-    .hero .container { max-width: 100%; }
   }
 
   @media (max-width: 768px) {
-    .hero-inner { grid-template-columns: 1fr; gap: 2.5rem; }
-    .hero h1 { font-size: 2.8rem; }
-    .hero-photo-wrapper { width: 200px; height: 200px; }
-    .hero-right { order: -1; }
-    .skills-grid, .projects-grid { grid-template-columns: 1fr; }
-    .certs-grid, .community-grid { grid-template-columns: 1fr; }
-    .timeline-item { grid-template-columns: 1fr; gap: 0.5rem; }
     nav { padding: 0.75rem 1rem; }
-    .nav-links { gap: 1rem; }
-    .nav-links a { font-size: 0.82rem; }
+
+    .nav-toggle { display: block; }
+
+    .nav-links {
+      display: none;
+      flex-direction: column;
+      position: absolute;
+      top: 100%; left: 0; right: 0;
+      background: rgba(10, 22, 40, 0.95);
+      backdrop-filter: blur(20px);
+      padding: 1rem 1.5rem;
+      gap: 0.25rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-links.open { display: flex; }
+    .nav-links li { padding: 0.5rem 0; }
+    .nav-links a { font-size: 0.95rem; }
+
+    .hero-inner {
+      grid-template-columns: 1fr;
+      gap: 2.5rem;
+    }
+    /* On mobile: text first, then image+stats BELOW */
+    .hero-text { order: 1; }
+    .hero-right { order: 2; }
+
+    .hero h1 { font-size: 2.8rem; }
+    .hero-photo-wrapper { width: 220px; height: 220px; }
+
+    .skills-grid { grid-template-columns: 1fr; }
+    .projects-grid { grid-template-columns: 1fr; }
+    .certs-grid { grid-template-columns: 1fr; }
+    .community-grid { grid-template-columns: 1fr; }
+    .timeline-item { grid-template-columns: 1fr; gap: 0.5rem; }
     .container { padding: 0 1.25rem; }
     section { padding: 4rem 0; }
+    .cta-box { padding: 3rem 1.5rem; }
+    .hero-subtitle { font-size: 1.05rem; }
   }
 </style>
 </head>
@@ -497,13 +556,16 @@
 
 <nav>
   <div class="nav-logo">TB</div>
-  <ul class="nav-links">
-    <li><a href="#about">About</a></li>
-    <li><a href="#experience">Experience</a></li>
-    <li><a href="#skills">Skills</a></li>
-    <li><a href="#portfolio">Portfolio</a></li>
-    <li><a href="#community">Community</a></li>
-    <li><a href="#contact">Contact</a></li>
+  <button class="nav-toggle" aria-label="Toggle navigation" onclick="this.classList.toggle('open');document.getElementById('navLinks').classList.toggle('open');">
+    <span></span><span></span><span></span>
+  </button>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#about" onclick="document.getElementById('navLinks').classList.remove('open');document.querySelector('.nav-toggle').classList.remove('open');">About</a></li>
+    <li><a href="#experience" onclick="document.getElementById('navLinks').classList.remove('open');document.querySelector('.nav-toggle').classList.remove('open');">Experience</a></li>
+    <li><a href="#skills" onclick="document.getElementById('navLinks').classList.remove('open');document.querySelector('.nav-toggle').classList.remove('open');">Skills</a></li>
+    <li><a href="#portfolio" onclick="document.getElementById('navLinks').classList.remove('open');document.querySelector('.nav-toggle').classList.remove('open');">Portfolio</a></li>
+    <li><a href="#community" onclick="document.getElementById('navLinks').classList.remove('open');document.querySelector('.nav-toggle').classList.remove('open');">Community</a></li>
+    <li><a href="#contact" onclick="document.getElementById('navLinks').classList.remove('open');document.querySelector('.nav-toggle').classList.remove('open');">Contact</a></li>
   </ul>
 </nav>
 
@@ -516,10 +578,10 @@
         <p class="hero-subtitle">I'm a Data &amp; BI Analyst who transforms complex datasets into clear, actionable insights. With 3+ years of experience, I build data-driven solutions for organisations across industries.</p>
         <div class="hero-links">
           <a href="mailto:oluwatobiloba.babajide96@gmail.com" class="hero-link primary">Get in Touch</a>
-          <a href="https://drive.google.com/file/d/1wQ42eSEN8fDvh9AV1A6HN5UsAuPr2PHN/view?usp=drive_link" class="hero-link" target="_blank">View CV ↗</a>
-          <a href="https://www.linkedin.com/in/tobiloba-babajide/" class="hero-link" target="_blank">LinkedIn ↗</a>
-          <a href="https://github.com/TobyTobi" class="hero-link" target="_blank">GitHub ↗</a>
-          <a href="https://public.tableau.com/app/profile/tobiloba.babajide" class="hero-link" target="_blank">Tableau Public ↗</a>
+          <a href="https://drive.google.com/file/d/1wQ42eSEN8fDvh9AV1A6HN5UsAuPr2PHN/view?usp=drive_link" class="hero-link" target="_blank">View CV</a>
+          <a href="https://www.linkedin.com/in/tobiloba-babajide/" class="hero-link" target="_blank">LinkedIn</a>
+          <a href="https://github.com/TobyTobi" class="hero-link" target="_blank">GitHub</a>
+          <a href="https://public.tableau.com/app/profile/tobiloba.babajide" class="hero-link" target="_blank">Tableau Public</a>
         </div>
       </div>
       <div class="hero-right">
@@ -532,11 +594,11 @@
             <div class="stat-label">Years Experience</div>
           </div>
           <div class="stat-card">
-            <div class="stat-number">6×</div>
+            <div class="stat-number">6x</div>
             <div class="stat-label">Viz of the Day</div>
           </div>
           <div class="stat-card">
-            <div class="stat-number">7×</div>
+            <div class="stat-number">7x</div>
             <div class="stat-label">Weekly Roundup</div>
           </div>
           <div class="stat-card">
@@ -633,42 +695,42 @@
 
     <div class="skills-grid">
       <div class="skill-group">
-        <div class="skill-group-icon">📊</div>
+        <div class="skill-group-icon">BI</div>
         <h3>Visualisation &amp; BI</h3>
         <div class="skill-list">
           <span class="skill-tag">Tableau Desktop</span><span class="skill-tag">Tableau Prep</span><span class="skill-tag">Tableau Server</span><span class="skill-tag">Tableau Cloud</span><span class="skill-tag">Dashboard Design</span><span class="skill-tag">Data Storytelling</span>
         </div>
       </div>
       <div class="skill-group">
-        <div class="skill-group-icon">🗄️</div>
+        <div class="skill-group-icon">DB</div>
         <h3>SQL &amp; Databases</h3>
         <div class="skill-list">
           <span class="skill-tag">Microsoft SQL Server</span><span class="skill-tag">PostgreSQL</span><span class="skill-tag">MySQL</span><span class="skill-tag">BigQuery</span><span class="skill-tag">Amazon Redshift</span>
         </div>
       </div>
       <div class="skill-group">
-        <div class="skill-group-icon">🐍</div>
+        <div class="skill-group-icon">Py</div>
         <h3>Programming &amp; Analysis</h3>
         <div class="skill-list">
           <span class="skill-tag">Python</span><span class="skill-tag">Pandas</span><span class="skill-tag">Web Scraping</span><span class="skill-tag">API Integration</span><span class="skill-tag">Statistical Modelling</span>
         </div>
       </div>
       <div class="skill-group">
-        <div class="skill-group-icon">📋</div>
+        <div class="skill-group-icon">XL</div>
         <h3>Spreadsheets</h3>
         <div class="skill-list">
           <span class="skill-tag">Microsoft Excel</span><span class="skill-tag">Google Sheets</span><span class="skill-tag">Advanced Formulas</span><span class="skill-tag">Data Cleaning</span>
         </div>
       </div>
       <div class="skill-group">
-        <div class="skill-group-icon">🧠</div>
+        <div class="skill-group-icon">+</div>
         <h3>Core Competencies</h3>
         <div class="skill-list">
           <span class="skill-tag">Data Modelling</span><span class="skill-tag">ETL Processes</span><span class="skill-tag">Economic Analysis</span><span class="skill-tag">Requirements Gathering</span><span class="skill-tag">Stakeholder Communication</span>
         </div>
       </div>
       <div class="skill-group">
-        <div class="skill-group-icon">🤖</div>
+        <div class="skill-group-icon">AI</div>
         <h3>AI &amp; Emerging Tools</h3>
         <div class="skill-list">
           <span class="skill-tag">LLM Evaluation</span><span class="skill-tag">Data Annotation</span><span class="skill-tag">Generative AI</span><span class="skill-tag">Prompt Engineering</span>
@@ -690,27 +752,27 @@
     <div class="certs-grid">
       <div class="cert-item">
         <div class="cert-number">1</div>
-        <div><div class="cert-name">B.Sc. Physics</div><div class="cert-issuer">University of Ibadan, Nigeria · 2019</div></div>
+        <div><div class="cert-name">B.Sc. Physics</div><div class="cert-issuer">University of Ibadan, Nigeria - 2019</div></div>
       </div>
       <div class="cert-item">
         <div class="cert-number">2</div>
-        <div><div class="cert-name">Business Intelligence Specialization</div><div class="cert-issuer">Google · Jan 2024</div></div>
+        <div><div class="cert-name">Business Intelligence Specialization</div><div class="cert-issuer">Google - Jan 2024</div></div>
       </div>
       <div class="cert-item">
         <div class="cert-number">3</div>
-        <div><div class="cert-name">Data Analytics Specialization</div><div class="cert-issuer">Google · Jul 2022</div></div>
+        <div><div class="cert-name">Data Analytics Specialization</div><div class="cert-issuer">Google - Jul 2022</div></div>
       </div>
       <div class="cert-item">
         <div class="cert-number">4</div>
-        <div><div class="cert-name">Operations Analytics</div><div class="cert-issuer">University of Pennsylvania · Dec 2023</div></div>
+        <div><div class="cert-name">Operations Analytics</div><div class="cert-issuer">University of Pennsylvania - Dec 2023</div></div>
       </div>
       <div class="cert-item">
         <div class="cert-number">5</div>
-        <div><div class="cert-name">People Analytics</div><div class="cert-issuer">University of Pennsylvania · Dec 2023</div></div>
+        <div><div class="cert-name">People Analytics</div><div class="cert-issuer">University of Pennsylvania - Dec 2023</div></div>
       </div>
       <div class="cert-item">
         <div class="cert-number">6</div>
-        <div><div class="cert-name">Customer Analytics</div><div class="cert-issuer">University of Pennsylvania · Dec 2023</div></div>
+        <div><div class="cert-name">Customer Analytics</div><div class="cert-issuer">University of Pennsylvania - Dec 2023</div></div>
       </div>
       <div class="cert-item">
         <div class="cert-number">7</div>
@@ -741,7 +803,7 @@
           <h3>Sales Dashboard</h3>
           <div class="project-tags"><span class="project-tag">Sales</span><span class="project-tag">KPIs</span><span class="project-tag">Revenue</span></div>
           <p>End-to-end sales performance dashboard tracking revenue, profit margins, and regional breakdowns with interactive filters.</p>
-          <span class="project-link-hint">View on Tableau Public →</span>
+          <span class="project-link-hint">View on Tableau Public &rarr;</span>
         </div>
       </a>
 
@@ -751,7 +813,7 @@
           <h3>Marketing Dashboard</h3>
           <div class="project-tags"><span class="project-tag">Marketing</span><span class="project-tag">Campaigns</span><span class="project-tag">ROI</span></div>
           <p>Campaign performance analytics dashboard visualising marketing spend, conversion rates, and channel effectiveness.</p>
-          <span class="project-link-hint">View on Tableau Public →</span>
+          <span class="project-link-hint">View on Tableau Public &rarr;</span>
         </div>
       </a>
 
@@ -761,7 +823,7 @@
           <h3>HR Attrition Dashboard</h3>
           <div class="project-tags"><span class="project-tag">HR</span><span class="project-tag">#RWFD</span><span class="project-tag">Attrition</span></div>
           <p>Employee attrition and retention analysis built on the Real World Fake Data HR dataset, with departmental drill-downs.</p>
-          <span class="project-link-hint">View on Tableau Public →</span>
+          <span class="project-link-hint">View on Tableau Public &rarr;</span>
         </div>
       </a>
 
@@ -771,7 +833,7 @@
           <h3>Health Tracker Dashboard</h3>
           <div class="project-tags"><span class="project-tag">Health</span><span class="project-tag">Wellness</span><span class="project-tag">Metrics</span></div>
           <p>Interactive health metrics visualisation helping users monitor and understand personal wellness data over time.</p>
-          <span class="project-link-hint">View on Tableau Public →</span>
+          <span class="project-link-hint">View on Tableau Public &rarr;</span>
         </div>
       </a>
 
@@ -781,7 +843,7 @@
           <h3>Superstore Dashboard</h3>
           <div class="project-tags"><span class="project-tag">Retail</span><span class="project-tag">Sales</span><span class="project-tag">Profit</span></div>
           <p>Comprehensive retail analytics dashboard built on the classic Superstore dataset with advanced Tableau techniques and multi-page navigation.</p>
-          <span class="project-link-hint">View on Tableau Public →</span>
+          <span class="project-link-hint">View on Tableau Public &rarr;</span>
         </div>
       </a>
 
@@ -791,7 +853,7 @@
           <h3>SuperStore Executive Summary</h3>
           <div class="project-tags"><span class="project-tag">Executive</span><span class="project-tag">KPIs</span><span class="project-tag">Summary</span></div>
           <p>Executive-level overview dashboard distilling Superstore data into high-level KPIs, trends, and actionable business insights.</p>
-          <span class="project-link-hint">View on Tableau Public →</span>
+          <span class="project-link-hint">View on Tableau Public &rarr;</span>
         </div>
       </a>
 
@@ -801,7 +863,7 @@
           <h3>Premier League Squad Ages</h3>
           <div class="project-tags"><span class="project-tag">Sports</span><span class="project-tag">Football</span><span class="project-tag">EPL</span></div>
           <p>Visual analysis of average squad ages across Premier League teams, revealing roster composition and youth investment trends.</p>
-          <span class="project-link-hint">View on Tableau Public →</span>
+          <span class="project-link-hint">View on Tableau Public &rarr;</span>
         </div>
       </a>
 
@@ -809,31 +871,22 @@
         <div class="tableau-logo">
           <svg width="48" height="48" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
             <g fill="none">
-              <!-- Center cross -->
               <rect x="21" y="10" width="6" height="28" rx="1" fill="#E97627"/>
               <rect x="10" y="21" width="28" height="6" rx="1" fill="#E97627"/>
-              <!-- Top cross -->
               <rect x="22.5" y="0" width="3" height="8" rx="0.5" fill="#C72037"/>
               <rect x="20" y="2.5" width="8" height="3" rx="0.5" fill="#C72037"/>
-              <!-- Bottom cross -->
               <rect x="22.5" y="40" width="3" height="8" rx="0.5" fill="#5B879B"/>
               <rect x="20" y="42.5" width="8" height="3" rx="0.5" fill="#5B879B"/>
-              <!-- Left cross -->
               <rect x="2.5" y="20" width="3" height="8" rx="0.5" fill="#5C6692"/>
               <rect x="0" y="22.5" width="8" height="3" rx="0.5" fill="#5C6692"/>
-              <!-- Right cross -->
               <rect x="42.5" y="20" width="3" height="8" rx="0.5" fill="#EB9129"/>
               <rect x="40" y="22.5" width="8" height="3" rx="0.5" fill="#EB9129"/>
-              <!-- Top-left cross -->
               <rect x="11.5" y="8" width="3" height="7" rx="0.5" fill="#5C6692"/>
               <rect x="8.5" y="11" width="9" height="3" rx="0.5" fill="#5C6692"/>
-              <!-- Top-right cross -->
               <rect x="33.5" y="8" width="3" height="7" rx="0.5" fill="#C72037"/>
               <rect x="30.5" y="11" width="9" height="3" rx="0.5" fill="#C72037"/>
-              <!-- Bottom-left cross -->
               <rect x="11.5" y="33" width="3" height="7" rx="0.5" fill="#1F457E"/>
               <rect x="8.5" y="34.5" width="9" height="3" rx="0.5" fill="#1F457E"/>
-              <!-- Bottom-right cross -->
               <rect x="33.5" y="33" width="3" height="7" rx="0.5" fill="#5B879B"/>
               <rect x="30.5" y="34.5" width="9" height="3" rx="0.5" fill="#5B879B"/>
             </g>
@@ -841,7 +894,7 @@
         </div>
         <h3>View All Vizzes</h3>
         <p style="font-size:0.92rem;color:var(--text-muted);font-weight:300;">Explore the full collection on Tableau Public</p>
-        <span class="project-link-hint">Browse Profile →</span>
+        <span class="project-link-hint">Browse Profile &rarr;</span>
       </a>
 
     </div>
@@ -876,7 +929,7 @@
       <div class="community-card">
         <div class="highlight-tag">Recognition</div>
         <h3>Tableau Public Achievements</h3>
-        <p>I've earned 6× Viz of the Day and 7× Weekly Roundup features on Tableau Public, showcasing creative data visualisations across economics, health, HR, and real estate domains.</p>
+        <p>I've earned 6x Viz of the Day and 7x Weekly Roundup features on Tableau Public, showcasing creative data visualisations across economics, health, HR, and real estate domains.</p>
       </div>
     </div>
   </div>
@@ -893,9 +946,9 @@
       <p>Whether you need a data analyst, a Tableau consultant, or a collaborator for your next data project — I'd love to hear from you.</p>
       <div class="cta-links">
         <a href="mailto:oluwatobiloba.babajide96@gmail.com" class="hero-link primary">Send Me an Email</a>
-        <a href="https://drive.google.com/file/d/1wQ42eSEN8fDvh9AV1A6HN5UsAuPr2PHN/view?usp=drive_link" class="hero-link" target="_blank">View CV ↗</a>
-        <a href="https://www.linkedin.com/in/tobiloba-babajide/" class="hero-link" target="_blank">LinkedIn ↗</a>
-        <a href="https://github.com/TobyTobi" class="hero-link" target="_blank">GitHub ↗</a>
+        <a href="https://drive.google.com/file/d/1wQ42eSEN8fDvh9AV1A6HN5UsAuPr2PHN/view?usp=drive_link" class="hero-link" target="_blank">View CV</a>
+        <a href="https://www.linkedin.com/in/tobiloba-babajide/" class="hero-link" target="_blank">LinkedIn</a>
+        <a href="https://github.com/TobyTobi" class="hero-link" target="_blank">GitHub</a>
       </div>
     </div>
   </div>
@@ -903,7 +956,7 @@
 
 <footer>
   <div class="container">
-    Tobiloba Babajide · Data &amp; BI Analyst · Lagos, Nigeria
+    Tobiloba Babajide &middot; Data &amp; BI Analyst &middot; Lagos, Nigeria
   </div>
 </footer>
 
