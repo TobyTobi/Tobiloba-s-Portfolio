@@ -8,12 +8,13 @@ This template was built for [Tobiloba Babajide](https://tobiloba-babajide.netlif
 
 ## What You Get
 
-A single `index.html` file that includes:
+A single `portfolio.html` file that includes:
 
 - **Fixed navigation** with scroll-spy (active tab highlights as you scroll)
+- **Hamburger menu** on mobile with animated toggle and auto-close on tap
 - **Hero section** with photo, headline, stat cards, and action links
 - **Experience timeline** with role descriptions and skill tags
-- **Skills grid** organized by category
+- **Skills grid** organized by category with text-based icons
 - **Education & Certifications** with numbered entries
 - **Project portfolio** with tags and live links
 - **Community & Teaching** highlights
@@ -21,6 +22,7 @@ A single `index.html` file that includes:
 - **Custom favicon** generated from your initials
 - **Dark theme** with CSS variables for easy recoloring
 - **Fully responsive** — works on desktop, tablet, and mobile
+- **No emojis** — uses clean text labels for maximum compatibility
 
 No dependencies. No JavaScript frameworks. No build step.
 
@@ -28,7 +30,7 @@ No dependencies. No JavaScript frameworks. No build step.
 
 ## Quick Start
 
-1. Download `Tobiloba_Babajide_Professional_Profile.html`
+1. Download `portfolio.html`
 2. Rename it to `index.html`
 3. Open it in any text editor (VS Code, Sublime, Notepad++, or even Notepad)
 4. Replace the content with your own information (see the section-by-section guide below)
@@ -45,10 +47,10 @@ index.html
 ├── <head>
 │   ├── Google Fonts (DM Serif Display + Outfit)
 │   ├── Favicon (inline SVG — your initials)
-│   └── <style> (all CSS, ~470 lines)
+│   └── <style> (all CSS, ~500 lines)
 │
 ├── <body>
-│   ├── <nav>              — Fixed top navigation
+│   ├── <nav>              — Fixed top navigation + hamburger menu
 │   ├── #about             — Hero section (photo, headline, stats, links)
 │   ├── #experience        — Work history timeline
 │   ├── #skills            — Technical skills grid (3 columns)
@@ -58,7 +60,7 @@ index.html
 │   ├── #contact           — Call-to-action box
 │   └── <footer>
 │
-└── <script>               — Scroll-spy (30 lines of vanilla JS)
+└── <script>               — Scroll-spy (~30 lines of vanilla JS)
 ```
 
 ---
@@ -78,7 +80,7 @@ Replace with your name. For the favicon, find the `<link rel="icon"...>` tag and
 ### 2. Navigation
 
 ```html
-<ul class="nav-links">
+<ul class="nav-links" id="navLinks">
   <li><a href="#about">About</a></li>
   <li><a href="#experience">Experience</a></li>
   <li><a href="#skills">Skills</a></li>
@@ -89,6 +91,8 @@ Replace with your name. For the favicon, find the `<link rel="icon"...>` tag and
 ```
 
 Add, remove, or rename tabs as needed. Just make sure each `href="#id"` matches a `<section id="id">` in the page. The scroll-spy script picks these up automatically.
+
+Each nav link also has an inline `onclick` handler that closes the mobile hamburger menu when a link is tapped. If you add a new link, copy the `onclick` from an existing one.
 
 **Tip:** If you don't have a community/teaching section, just delete both the nav link and the section.
 
@@ -116,8 +120,8 @@ The `<span>` part gets the gradient color.
 ```html
 <div class="hero-links">
   <a href="mailto:you@email.com" class="hero-link primary">Get in Touch</a>
-  <a href="YOUR_CV_LINK" class="hero-link" target="_blank">View CV ↗</a>
-  <a href="YOUR_LINKEDIN" class="hero-link" target="_blank">LinkedIn ↗</a>
+  <a href="YOUR_CV_LINK" class="hero-link" target="_blank">View CV</a>
+  <a href="YOUR_LINKEDIN" class="hero-link" target="_blank">LinkedIn</a>
   <!-- Add or remove links as needed -->
 </div>
 ```
@@ -134,6 +138,11 @@ To convert an image to base64 (Mac/Linux terminal):
 base64 -w 0 your-photo.png
 ```
 
+On Windows (PowerShell):
+```powershell
+[Convert]::ToBase64String([IO.File]::ReadAllBytes("your-photo.png"))
+```
+
 **Your stats:**
 ```html
 <div class="stat-card">
@@ -142,6 +151,8 @@ base64 -w 0 your-photo.png
 </div>
 ```
 Change the numbers and labels. Add or remove stat cards (keep them in pairs for the 2-column grid).
+
+**Mobile layout note:** On screens under 768px, the hero displays your name and subtitle first, with the photo and stat cards stacking below. On desktop, the photo sits to the right.
 
 ### 4. Experience Timeline
 
@@ -166,11 +177,11 @@ Copy and paste this block for each role. Most recent first.
 
 ### 5. Skills Grid
 
-Each skill category is a card:
+Each skill category is a card. The icon is a short text label inside a styled box — no emojis:
 
 ```html
 <div class="skill-group">
-  <div class="skill-group-icon">📊</div>
+  <div class="skill-group-icon">BI</div>
   <h3>Category Name</h3>
   <div class="skill-list">
     <span class="skill-tag">Skill 1</span>
@@ -178,6 +189,8 @@ Each skill category is a card:
   </div>
 </div>
 ```
+
+The template uses labels like `BI`, `DB`, `Py`, `XL`, `AI`, and `+`. Replace these with whatever short label fits your categories (e.g., `ML`, `UX`, `PM`).
 
 The grid displays 3 columns on desktop, 2 on tablet, 1 on mobile. Add as many categories and skills as you need.
 
@@ -190,12 +203,12 @@ Each entry is numbered:
   <div class="cert-number">1</div>
   <div>
     <div class="cert-name">Your Degree or Certification</div>
-    <div class="cert-issuer">Institution · Date</div>
+    <div class="cert-issuer">Institution - Date</div>
   </div>
 </div>
 ```
 
-Number them sequentially. The grid displays 2 columns.
+Number them sequentially. The grid displays 2 columns on desktop, 1 on mobile.
 
 ### 7. Project Portfolio
 
@@ -211,7 +224,7 @@ Each project card:
       <span class="project-tag">Tag 2</span>
     </div>
     <p>Short description of the project...</p>
-    <span class="project-link-hint">View Project →</span>
+    <span class="project-link-hint">View Project &rarr;</span>
   </div>
 </a>
 ```
@@ -223,7 +236,7 @@ The grid displays 4 columns on desktop, 2 on tablet, 1 on mobile.
 https://public.tableau.com/app/profile/YOUR_USERNAME/viz/WORKBOOK_NAME/SHEET_NAME
 ```
 
-The last card in the template links to a "View All" page with a Tableau logo. Replace or remove this if you're not a Tableau user.
+The last card in the template links to a "View All" page with a Tableau logo SVG. Replace or remove this if you're not a Tableau user.
 
 ### 8. Community & Teaching
 
@@ -246,9 +259,9 @@ Update the links at the bottom:
 ```html
 <div class="cta-links">
   <a href="mailto:you@email.com" class="hero-link primary">Send Me an Email</a>
-  <a href="YOUR_CV" class="hero-link" target="_blank">View CV ↗</a>
-  <a href="YOUR_LINKEDIN" class="hero-link" target="_blank">LinkedIn ↗</a>
-  <a href="YOUR_GITHUB" class="hero-link" target="_blank">GitHub ↗</a>
+  <a href="YOUR_CV" class="hero-link" target="_blank">View CV</a>
+  <a href="YOUR_LINKEDIN" class="hero-link" target="_blank">LinkedIn</a>
+  <a href="YOUR_GITHUB" class="hero-link" target="_blank">GitHub</a>
 </div>
 ```
 
@@ -257,7 +270,7 @@ Update the links at the bottom:
 ```html
 <footer>
   <div class="container">
-    Your Name · Your Title · Your Location
+    Your Name &middot; Your Title &middot; Your Location
   </div>
 </footer>
 ```
@@ -328,11 +341,26 @@ The template has two breakpoints:
 
 | Screen Width | Layout |
 |---|---|
-| **> 1100px** | Full desktop — 4-col projects, 3-col skills, 2-col certs |
+| **> 1100px** | Full desktop — 4-col projects, 3-col skills, 2-col certs, side-by-side hero |
 | **768px – 1100px** | Tablet — 2-col projects, 2-col skills |
-| **< 768px** | Mobile — single column everything, stacked hero |
+| **< 768px** | Mobile — single column everything, hamburger menu, hero text above photo |
 
 These are defined in the `@media` blocks near the bottom of the CSS.
+
+On mobile, the hero section places your name and subtitle first (`order: 1`), with the photo and stat cards below (`order: 2`). The navigation collapses into a hamburger toggle that opens a full-width dropdown.
+
+---
+
+## How the Hamburger Menu Works
+
+The `<button class="nav-toggle">` contains three `<span>` elements styled as horizontal bars. On click:
+
+1. The button's `onclick` toggles the `.open` class on both itself and the `#navLinks` list
+2. CSS transforms rotate the top and bottom bars into an X shape and fades the middle bar
+3. The `.nav-links.open` rule switches the list from `display: none` to a vertical `flex` column positioned below the nav bar
+4. Each nav link has its own `onclick` that removes `.open` from both elements, closing the menu after a tap
+
+The hamburger is hidden on desktop (`display: none` above 768px) and only appears at the mobile breakpoint.
 
 ---
 
@@ -389,6 +417,7 @@ Upload `index.html` to any web server. It's a single file with no dependencies �
 - [ ] Listed your actual work experience, skills, and certifications
 - [ ] Added your real projects with live links
 - [ ] Tested on mobile (resize your browser or use DevTools)
+- [ ] Tested the hamburger menu opens and closes correctly
 - [ ] Checked all external links work
 - [ ] Removed any sections that don't apply to you
 
